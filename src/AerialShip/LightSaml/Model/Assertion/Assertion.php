@@ -292,25 +292,25 @@ class Assertion implements GetXmlInterface, LoadFromXmlInterface
         $result->setAttribute('Version', $this->getVersion());
         $result->setAttribute('IssueInstant', Helper::time2string($this->getIssueInstant()));
 
-        $issuerNode = $context->getDocument()->createElement('Issuer', $this->getIssuer());
+        $issuerNode = $context->getDocument()->createElementNS(Protocol::NS_ASSERTION, 'saml:Issuer', $this->getIssuer());
         $result->appendChild($issuerNode);
 
         $this->getSubject()->getXml($result, $context);
 
-        $conditionsNode = $context->getDocument()->createElement('Conditions');
+        $conditionsNode = $context->getDocument()->createElementNS(Protocol::NS_ASSERTION, 'saml:Conditions');
         $result->appendChild($conditionsNode);
         $conditionsNode->setAttribute('NotBefore', Helper::time2string($this->getNotBefore()));
         $conditionsNode->setAttribute('NotOnOrAfter', Helper::time2string($this->getNotOnOrAfter()));
         if ($this->getValidAudience()) {
-            $audienceRestrictionNode = $context->getDocument()->createElement('AudienceRestriction');
+            $audienceRestrictionNode = $context->getDocument()->createElementNS(Protocol::NS_ASSERTION, 'saml:AudienceRestriction');
             $conditionsNode->appendChild($audienceRestrictionNode);
             foreach ($this->getValidAudience() as $v) {
-                $audienceNode = $context->getDocument()->createElement('Audience', $v);
+                $audienceNode = $context->getDocument()->createElementNS(Protocol::NS_ASSERTION, 'saml:Audience', $v);
                 $audienceRestrictionNode->appendChild($audienceNode);
             }
         }
 
-        $attributeStatementNode = $context->getDocument()->createElement('AttributeStatement');
+        $attributeStatementNode = $context->getDocument()->createElementNS(Protocol::NS_ASSERTION, 'saml:AttributeStatement');
         $result->appendChild($attributeStatementNode);
         foreach ($this->getAllAttributes() as $attribute) {
             $attribute->getXml($attributeStatementNode, $context);

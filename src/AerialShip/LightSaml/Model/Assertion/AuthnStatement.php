@@ -91,7 +91,7 @@ class AuthnStatement implements GetXmlInterface, LoadFromXmlInterface
      * @return \DOMElement
      */
     function getXml(\DOMNode $parent, SerializationContext $context) {
-        $result = $context->getDocument()->createElement('AuthnStatement');
+        $result = $context->getDocument()->createElementNS(Protocol::NS_ASSERTION, 'saml:AuthnStatement');
         $parent->appendChild($result);
 
         $result->setAttribute('AuthnInstant', Helper::time2string($this->getAuthnInstant()));
@@ -99,9 +99,9 @@ class AuthnStatement implements GetXmlInterface, LoadFromXmlInterface
             $result->setAttribute('SessionIndex', $this->getSessionIndex());
         }
 
-        $authnContextNode = $context->getDocument()->createElement('AuthnContext');
+        $authnContextNode = $context->getDocument()->createElementNS(Protocol::NS_ASSERTION, 'saml:AuthnContext');
         $result->appendChild($authnContextNode);
-        $refNode = $context->getDocument()->createElement('AuthnContextClassRef', $this->getAuthnContext());
+        $refNode = $context->getDocument()->createElementNS(Protocol::NS_ASSERTION, 'saml:AuthnContextClassRef', $this->getAuthnContext());
         $authnContextNode->appendChild($refNode);
 
         return $result;

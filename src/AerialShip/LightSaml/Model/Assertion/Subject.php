@@ -72,7 +72,7 @@ class Subject implements GetXmlInterface, LoadFromXmlInterface
     {
         $this->prepareForXml();
 
-        $result = $context->getDocument()->createElement('Subject');
+        $result = $context->getDocument()->createElementNS(Protocol::NS_ASSERTION, 'Subject');
         $parent->appendChild($result);
 
         $this->getNameID()->getXml($result, $context);
