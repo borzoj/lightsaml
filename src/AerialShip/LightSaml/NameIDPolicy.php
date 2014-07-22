@@ -6,8 +6,6 @@ namespace AerialShip\LightSaml;
 final class NameIDPolicy
 {
     const NONE = null;
-    const UNSPECIFIED = 'urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified';
-    const ENCRYPTED = 'urn:oasis:names:tc:SAML:2.0:nameid-format:encrypted';
     const PERSISTENT = 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent';
     const TRANSIENT = 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient';
     const EMAIL = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
